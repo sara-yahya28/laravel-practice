@@ -18,3 +18,5 @@ Route::get('/user', [UserController::class, 'index']);
 Route::get('/post', [PostController::class, 'index']);
 Route::get('/post/{id}',[PostController::class,'show'])
 ->name('post');
+Route::get('/posts/{post}/delete', [App\Http\Controllers\PostController::class, 'delete'])->name('posts.delete');
+Route::resource('posts', PostController::class);//create all function at once

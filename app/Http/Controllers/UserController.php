@@ -14,7 +14,6 @@ class UserController extends Controller
     {
         // جلب كل المستخدمين من قاعدة البيانات
         $users = User::all();
-
         // عرض القالب مع تمرير البيانات
 return view('user', compact('users'));    }
 
