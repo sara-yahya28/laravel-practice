@@ -71,4 +71,8 @@ class PostController extends Controller
         $post->delete();
         return redirect('/posts')->with('success', 'تم حذف المقال بنجاح!');
     }
-}
+public function show(Post $post)
+{
+    return view('posts.show', compact('post'));
+}}
+
