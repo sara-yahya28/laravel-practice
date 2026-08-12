@@ -9,19 +9,9 @@
     body {
         margin: 0;
     }
-    /* تثبيت الـNavbar في الأعلى */
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        width: 100%;
-    }
 </style>
 
 <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-    {{-- إزالة margin-top وجعلها 0 --}}
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; margin-top: 0;">
         <h1> جميع المقالات</h1>
         <a href="{{ route('posts.create') }}" style="background: #4CAF50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 8px;">
@@ -33,7 +23,8 @@
         <article style="background: #f9f9f9; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 <a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: #333;">
     <h2 style="margin-top: 0; color: #333;">{{ $post->title }}</h2>
-</a>            <p style="color: #555; line-height: 1.6;">{{ $post->body }}</p>
+</a>      
+      <p style="color: #555; line-height: 1.6;">{{ $post->body }}</p>
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;">
                 <span style="color: #777; font-size: 0.9rem;">

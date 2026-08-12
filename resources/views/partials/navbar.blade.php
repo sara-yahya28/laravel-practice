@@ -7,11 +7,11 @@
 
     {{-- الروابط (الجهة اليسرى) --}}
     <div style="display: flex; gap: 15px; align-items: center;">
-        <a href="{{ route('posts.index') }}" 
+        <a href="{{ route('blogs.index') }}" 
            style="color: white; text-decoration: none; font-size: 18px; padding: 8px 15px; border-radius: 6px; transition: 0.3s;">
             الرئيسية
         </a>
-        <a href="{{ route('posts.create') }}" 
+        <a href="{{ route('blogs.create') }}" 
            style="color: white; text-decoration: none; font-size: 18px; padding: 8px 15px; border-radius: 6px; background-color: rgba(255,255,255,0.2); transition: 0.3s;">
             إضافة مقال
         </a>

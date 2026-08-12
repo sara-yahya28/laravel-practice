@@ -25,3 +25,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+blogs
+BlogController
+Blog
+2026_08_10_154824_create_blogs_table
+2026_08_10_155125_add_user_id_to_blogs_table
