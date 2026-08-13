@@ -7,15 +7,13 @@
     <title>user</title>
 </head>
 <body>
-    
+
 <p>Hello User</p>
 
 <h1>قائمة المستخدمين</h1>
+{{--using same var declared in web--}}
+     <p>{{$blog_title}}</p>
+    <p>{{$blog_content}}</p>
 
-@foreach ($users as $user)
-    <p>👤 {{ $user->name }}</p>
-@endforeach
-   
-$
 </body>
 </html>
