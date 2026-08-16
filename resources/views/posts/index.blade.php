@@ -33,13 +33,17 @@
                 
                 <div style="display: flex; gap: 10px;">
                     {{-- زر التعديل --}}
-                    <a href="{{ route('posts.edit', $post->id) }}" style="color: #2196F3; text-decoration: none; font-size: 0.9rem;"> تعديل</a>
+                    <a href="{{ route('posts.edit', $post->id) }}" style="color: #2196F3;text-decoration: none;font-size: 0.9rem;margin-top: 7px;"> تعديل</a>
                     
                     {{-- زر الحذف (رابط لصفحة التأكيد) --}}
-                    <a href="{{ route('posts.delete', $post->id) }}" 
-                       style="color: #f44336; text-decoration: none; font-size: 0.9rem;">
-                         حذف
-                    </a>
+<form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" onclick="return confirm('هل أنت متأكد؟')" 
+            style="background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px;">
+        حذف
+    </button>
+</form>
                 </div>
             </div>
         </article>

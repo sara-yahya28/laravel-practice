@@ -31,7 +31,7 @@ class PostController extends Controller
         Post::create([
             'title'   => $request->title,
             'body'    => $request->body,
-            'user_id' => auth()->id() ?? 1,
+            'user_id' => auth()->id()
         ]);
 
         return redirect('/posts')->with('success', 'تم إضافة المقال بنجاح!');

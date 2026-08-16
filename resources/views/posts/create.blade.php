@@ -2,7 +2,7 @@
 
 @section('title', 'إضافة مقال جديد')
 
-@section('body')
+@section('content')
 <div class="container" style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
     <h1 style="margin-bottom: 30px;"> إضافة مقال جديد</h1>
     

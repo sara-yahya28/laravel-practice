@@ -26,11 +26,14 @@
 
         <div style="margin-top: 20px; display: flex; gap: 10px;">
             <a href="{{ route('posts.edit', $post->id) }}" style="background: #2196F3; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px;">تعديل</a>
-            <form action="{{route('posts.destroy', $post->id) }}method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button style="background: #f44336; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px;">حذف</button>
-            </form>
+<form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" onclick="return confirm('هل أنت متأكد؟')" 
+            style="background: red;color: white;border: none;margin-top: 5px;padding: 5px 10px;border-radius: 5px;">
+        حذف
+    </button>
+</form>
         </div>
     </article>
 </div>

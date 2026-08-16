@@ -1,5 +1,6 @@
+{{-- Template page --}}
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="eng" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +11,22 @@
             margin: 0;
         }
     </style>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    @include('partials.navbar');
+    {{-- @include('partials.navbar') --}}
 
-<main class="container">
+    {{-- Start NavBar --}}
+{{-- Constant. Same piece of code (like a header or footer) shows up on every single page exactly the same way. --}}
+@include("partials.navbar2")
+
+    <main class="container">
+{{-- Variable. You leave an empty spot in the layout, and each child page decides what to put in that spot using extend()--}}
     @yield('body')
 </main>
+
+{{-- For Standared Sections in all pages --}}
+@include('partials.sidebar')
 
 </body>
 </html>
