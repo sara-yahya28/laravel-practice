@@ -28,6 +28,7 @@ $validated = $request->validate([
 ]);
 
 $post = $request->user()->posts()->create($validated);
+
 return response()->json([
 'message' => 'ﺗﻢ إﻧﺸﺎء اﻟﻤﻘﺎل ﺑﻨﺠﺎح',
 'data'    
