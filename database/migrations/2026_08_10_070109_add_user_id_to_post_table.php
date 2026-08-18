@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            // $table->id();
-            // $table->timestamps();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        });
+        if (!Schema::hasColumn('posts', 'user_id')) {
+            Schema::table('posts', function (Blueprint $table) {
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            });
+        }
     }
 
     /**
      * Reverse the migrations.
      */
-public function down(): void
-{
-    Schema::table('posts', function (Blueprint $table) {   // <<--- تغيير إلى posts
-        $table->dropForeign(['user_id']);
-        $table->dropColumn('user_id');
-    });
-}
+    public function down(): void
+    {
+        if (Schema::hasColumn('posts', 'user_id')) {
+            Schema::table('posts', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropColumn('user_id');
+            });
+        }
+    }
 };

@@ -10,6 +10,9 @@ Route::get('/', function () {
     return view('welcome'/*,[Array Of data]*/);
 });
 
+// Short Hand
+Route::view('contact','contact')->name('request');
+
 Route::resource('/blogs',BlogController::class);
 Route::resource('/posts',PostController::class);
 
@@ -62,3 +65,5 @@ Route::middleware('auth')->group(function () {
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
+
+Route::view('products','product');
