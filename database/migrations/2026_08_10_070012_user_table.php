@@ -24,8 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            // حذف المفتاح الأجنبي أولاً ثم حذف العمود
-            $table->dropForeign(['user_id']);
+        // فقط احذف العمود، والمفتاح الأجنبي سيُحذف تلقائياً (إن كان موجوداً)
             $table->dropColumn('user_id');
         });
     }

@@ -11,6 +11,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+// يستقبل الايميل و كلمة السر و يرجع access token
 // التحقق من صحة المدخلات المرسلة قبل البدء بأي عملية
         $request->validate([
             'email' => 'required|email', // حقل الإيميل مطلوب ويجب أن يكون بصيغة بريد إلكتروني صحيحة

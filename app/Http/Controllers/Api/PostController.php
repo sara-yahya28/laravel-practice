@@ -27,14 +27,17 @@ $validated = $request->validate([
 'body'  => 'required|string',
 ]);
 
+// جلب المستخدم المسجل دخوله حالياً (عن طريق التوكن)، ثم استخدام علاقة "المقالات" الخاصة به
+// لإنشاء مقال جديد. العلاقة ستقوم تلقائياً بتعبئة عمود user_id في قاعدة البيانات،
+// مما يمنع أي محاولة لإسناد المقال لمستخدم آخر عن طريق التلاعب بالطلب.
 $post = $request->user()->posts()->create($validated);
 
-return response()->json([
-'message' => 'ﺗﻢ إﻧﺸﺎء اﻟﻤﻘﺎل ﺑﻨﺠﺎح',
-'data'    
-=> new PostResource($post)
-], 201);
-}
+    return response()->json([
+    'message' => 'ﺗﻢ إﻧﺸﺎء اﻟﻤﻘﺎل ﺑﻨﺠﺎح',
+    'data'    
+    => new PostResource($post)
+    ], 201);
+   }
 
     /**
      * Display the specified resource.

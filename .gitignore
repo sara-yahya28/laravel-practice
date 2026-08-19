@@ -32,3 +32,9 @@ Blog
 2026_08_10_154824_create_blogs_table
 2026_08_10_155125_add_user_id_to_blogs_table
 /views/layout/template
+app/Models/Blog.php
+app/Http/Controllers/BlogController.php
+resources/views/contact.blade.php
+resources/views/welcome.blade.php
+database/migrations/2026_08_10_154824_create_blogs_table.php
+database/migrations/2026_08_10_155125_add_user_id_to_blogs_table.php

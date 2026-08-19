@@ -12,14 +12,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
     {{-- gets its value from pages --}}
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <style>
-        body{
-            margin: 50px;
-        }
        nav>a{
         background-color: #550511;
         padding: 15px;
-        margin: 15px;
+        margin-top: 15px;
         color: white;
         border-radius: 15px;
         text-decoration: none;
@@ -36,7 +35,7 @@
        }
     </style>
 </head>
-<body>
+<body class="bg-gray-700 p-6 max-w-xl mx-auto">
     <nav>
         <a href="/">Home</a>
         <a href="{{route('request')}}">Contact Us</a>

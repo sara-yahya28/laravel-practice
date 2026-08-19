@@ -5,9 +5,56 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Console\RouteCacheCommand;
 use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Idea;
+
+use function Laravel\Prompts\table;
 
 Route::get('/', function () {
-    return view('welcome'/*,[Array Of data]*/);
+    // return view('ideas',[
+    //     "greetings"=>'Hello',
+    //     'person'=>request('person','World'),//'World' is default value 
+    // 'tasks'=>[
+    //     'Go to the market',
+    //     'Walk the dog',
+    //     'Watch a video tutorial'
+    // ]
+    //     ]);
+
+    // $idea=session()->get('newIdea',[]);//brings already stored value in session
+    // under newIdea and store in var
+// $idea=DB::table('ideas')->get();
+
+$idea=Idea::where('state','pending')->get();
+$idea=Idea::query()->when(
+    request('state'), function($query, $state){
+$query->where('state',$state);
+    })->get();
+// return $idea;
+    return view ('ideas',[
+    //"I am sending the data to the ideas page, and I am naming it newIdea."
+        'newIdea'=>$idea//newIdea is only way to access data
+    ]);
+});
+
+Route::get('delete-ideas',function(){
+    session()->forget('newIdea');
+   return redirect('/'); 
+});
+
+// request-> holds data from user
+Route::post('/ideas',function(){
+$idea=request('newIdea');//fetch an idea
+// session()->push('newIdea',$idea); //push it to session
+
+// fetched idea is passed to eloquent model
+Idea::create([
+'describtion'=>$idea,
+'state'=>'pending'
+]);
+
+return redirect('/');
 });
 
 // Short Hand
