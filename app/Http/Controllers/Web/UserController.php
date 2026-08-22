@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\User; // استيراد النموذج
+use App\Http\Controllers\Controller;  // <--- السطر الجديد ده
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
