@@ -1,16 +1,31 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\PostController;
-use Illuminate\Foundation\Console\RouteCacheCommand;
+use App\Http\Controllers\Web\PostController;
 use Illuminate\Support\Facades\Route;
-// use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use App\Models\Idea;
 
 use function Laravel\Prompts\table;
 
+// post Practice
+Route::resource('/posts', PostController::class);
+
+// Product Practice
+// Route::get('product/{id}',function($id){
+//     // $id=request('id');
+//     $cats=[
+//         '1'=>'Games',
+//         '2'=>'Programming',
+//         '3'=>'Books'
+//     ];
+// return view('product',[
+// 'the_id'=>$cats[$id] ?? "This Id Is Not Found"
+//     ]);
+// });
+
+// Route::view('products','product');
+// Side Practices
 Route::get('/', function () {
     // return view('ideas',[
     //     "greetings"=>'Hello',
@@ -58,22 +73,7 @@ return redirect('/');
 });
 
 // Short Hand
-Route::view('contact','contact')->name('request');
-
 Route::resource('/blogs',BlogController::class);
-Route::resource('/posts',PostController::class);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
 
 // passing data to the specified page
 Route::view('create','user',[
@@ -84,33 +84,18 @@ Route::view('create','user',[
 // specify link syntax
 // Route::get('products/{id/posts/{post_id}}',function($id,$post_id)
 
-Route::view('/product','product')->name('product');
-Route::view('/create-blog','blogs.create')->name('createBlog');
-
 // route captures ID from URL, looks it up in predefined categories array, 
 // passes matching category name (or "not found" message) to 'products' view as 'the_id
-Route::get('product/{id}',function($id){
-    // $id=request('id');
-    $cats=[
-        '1'=>'Games',
-        '2'=>'Programming',
-        '3'=>'Books'
-    ];
-return view('product',[
-'the_id'=>$cats[$id] ?? "This Id Is Not Found"
-    ]);
-});
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
-// Protected routes, cant be entered without signing in
-Route::middleware('auth')->group(function () {
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-});
-
-Route::view('products','product');
+// Breeze authentication
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+    
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+    
+    require __DIR__.'/auth.php';
