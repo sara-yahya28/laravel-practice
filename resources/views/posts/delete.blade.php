@@ -1,40 +1,43 @@
-@extends('layout.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('تأكيد الحذف') }}
+        </h2>
+    </x-slot>
 
-@section('title', 'حذف المقال')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
+                    
+                    <h2 class="text-2xl font-bold text-red-600 mb-4">⚠️ تأكيد الحذف</h2>
+                    
+                    <p class="text-lg mb-4">هل أنت متأكد من حذف المقال التالي؟</p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4 inline-block">
+                        <strong class="text-lg">{{ $post->title }}</strong>
+                    </div>
+                    
+                    <p class="text-sm text-gray-500 mb-6">لا يمكن التراجع عن هذا الإجراء.</p>
+                    
+                    <div class="flex gap-4 justify-center">
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                                    class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500">
+                                نعم، احذف
+                            </button>
+                        </form>
+                        
+                        <a href="{{ route('posts.index') }}" 
+                           class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500">
+                            إلغاء
+                        </a>
+                    </div>
 
-@section('content')
-<div style="max-width: 600px; margin: 60px auto; padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
-    
-    <h2 style="color: #d32f2f; margin-bottom: 20px;">⚠️ تأكيد الحذف</h2>
-    
-    <p style="font-size: 18px; margin: 20px 0;">
-        هل أنت متأكد من حذف المقال التالي؟
-    </p>
-    
-    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-        <strong style="font-size: 18px;">{{ $post->title }}</strong>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <p style="color: #999; font-size: 14px; margin-bottom: 30px;">
-        لا يمكن التراجع عن هذا الإجراء.
-    </p>
-    
-    <div style="display: flex; gap: 15px; justify-content: center;">
-        {{-- زر الحذف الفعلي --}}
-        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" 
-                    style="background: #d32f2f; color: white; padding: 10px 30px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
-                نعم، احذف
-            </button>
-        </form>
-        
-        {{-- زر الإلغاء --}}
-        <a href="{{ route('posts.index') }}" 
-           style="background: #ccc; color: #333; padding: 10px 30px; text-decoration: none; border-radius: 8px; font-size: 16px;">
-            إلغاء
-        </a>
-    </div>
-</div>
-@endsection
+</x-app-layout>

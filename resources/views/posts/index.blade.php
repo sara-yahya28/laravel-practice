@@ -1,59 +1,64 @@
-@extends('layout.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('جميع المقالات') }}
+        </h2>
+    </x-slot>
 
-@section('title', 'جميع المقالات')
-
-@section('content')
-{{-- إضافة CSS لتثبيت الـ Navbar وإزالة الهوامش --}}
-<style>
-    /* إزالة الهوامش من الصفحة */
-    body {
-        margin: 0;
-    }
-</style>
-
-<div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; margin-top: 0;">
-        <h1> جميع المقالات</h1>
-        <a href="{{ route('posts.create') }}" style="background: #4CAF50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 8px;">
-             إضافة مقال
-        </a>
-    </div>
-
-    @forelse ($posts as $post)
-        <article style="background: #f9f9f9; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-<a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: #333;">
-    <h2 style="margin-top: 0; color: #333;">{{ $post->title }}</h2>
-</a>      
-      <p style="color: #555; line-height: 1.6;">{{ $post->body }}</p>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;">
-                <span style="color: #777; font-size: 0.9rem;">
-                     كتب بواسطة: <strong>{{ $post->user->name }}</strong>
-                </span>
-                
-                <div style="display: flex; gap: 10px;">
-                    {{-- زر التعديل --}}
-                    <a href="{{ route('posts.edit', $post->id) }}" style="color: #2196F3;text-decoration: none;font-size: 0.9rem;margin-top: 7px;"> تعديل</a>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                     
-                    {{-- زر الحذف (رابط لصفحة التأكيد) --}}
-<form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
-    @csrf
-    @method('DELETE')
-    <button type="submit" onclick="return confirm('هل أنت متأكد؟')" 
-            style="background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px;">
-        حذف
-    </button>
-</form>
+                    {{-- زر إضافة مقال --}}
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-bold">قائمة المقالات</h1>
+                        <a href="{{ route('posts.create') }}" 
+                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm">
+                            + إضافة مقال جديد
+                        </a>
+                    </div>
+
+                    {{-- عرض المقالات --}}
+                    @forelse ($posts as $post)
+                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
+                            <a href="{{ route('posts.show', $post->id) }}" 
+                               class="text-blue-600 hover:text-blue-900 font-medium text-lg">
+                                {{ $post->title }}
+                            </a>
+                            <p class="text-gray-600 dark:text-gray-300 mt-2">{{ Str::limit($post->body, 100) }}</p>
+                            
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-300 dark:border-gray-600">
+                                <span class="text-sm text-gray-500"> بواسطة: {{ $post->user->name }}</span>
+                                <div class="flex gap-2">
+                                    <a href="{{ route('posts.edit', $post->id) }}" 
+                                       class="bg-yellow-500 hover:bg-yellow-700 text-white text-sm px-3 py-1 rounded">
+                                        تعديل
+                                    </a>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="bg-red-500 hover:bg-red-700 text-white text-sm px-3 py-1 rounded"
+                                                onclick="return confirm('هل أنت متأكد من حذف هذا المقال؟')">
+                                            حذف
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-12">
+                            <p class="text-gray-500 text-lg">📭 لا توجد مقالات حتى الآن</p>
+                            <a href="{{ route('posts.create') }}" 
+                               class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                أضف أول مقال
+                            </a>
+                        </div>
+                    @endforelse
+
                 </div>
             </div>
-        </article>
-    @empty
-        <div style="text-align: center; padding: 60px 20px; background: #f9f9f9; border-radius: 12px;">
-            <p style="font-size: 1.2rem; color: #999;">📭 عفوًا، لا توجد أي مقالات مضافة حاليًا.</p>
-            <a href="{{ route('posts.create') }}" style="display: inline-block; margin-top: 15px; background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px;">
-                 أضف أول مقال
-            </a>
         </div>
-    @endforelse
-</div>
-@endsection
+    </div>
+</x-app-layout>

@@ -1,34 +1,44 @@
-@extends('layout.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('إضافة مقال جديد') }}
+        </h2>
+    </x-slot>
 
-@section('title', 'إضافة مقال جديد')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    
+                    <form action="{{ route('posts.store') }}" method="POST" class="space-y-4">
+                        @csrf
+                        
+                        <div>
+                            <label for="title" class="block font-medium text-sm text-gray-700 dark:text-gray-300">العنوان</label>
+                            <input type="text" name="title" id="title" required 
+                                   class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                        </div>
+                        
+                        <div>
+                            <label for="body" class="block font-medium text-sm text-gray-700 dark:text-gray-300">المحتوى</label>
+                            <textarea name="body" id="body" rows="6" required 
+                                      class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"></textarea>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button type="submit" 
+                                    class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500">
+                                حفظ
+                            </button>
+                            <a href="{{ route('posts.index') }}" 
+                               class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500">
+                                إلغاء
+                            </a>
+                        </div>
+                    </form>
 
-@section('content')
-<div class="container" style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
-    <h1 style="margin-bottom: 30px;"> إضافة مقال جديد</h1>
-    
-    <form action="/posts" method="POST" style="background: #f9f9f9; padding: 30px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        @csrf
-        
-        <div style="margin-bottom: 20px;">
-            <label for="title" style="display: block; font-weight: bold; margin-bottom: 5px;">العنوان</label>
-            <input type="text" name="title" id="title" required 
-                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                </div>
+            </div>
         </div>
-        
-        <div style="margin-bottom: 20px;">
-            <label for="body" style="display: block; font-weight: bold; margin-bottom: 5px;">المحتوى</label>
-            <textarea name="body" id="body" rows="6" required 
-                      style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
-        </div>
-        
-        <div style="display: flex; gap: 10px;">
-            <button type="submit" style="background: #4CAF50; color: white; padding: 10px 24px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;">
-                 حفظ
-            </button>
-            <a href="/posts" style="background: #f44336; color: white; padding: 10px 24px; text-decoration: none; border-radius: 8px;">
-                 إلغاء
-            </a>
-        </div>
-    </form>
-</div>
-@endsection
+    </div>
+</x-app-layout>
